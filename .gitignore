@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+/.vs/NRRT
+/API/bin/Debug/net6.0
+/API/obj
+/BusinessLogic/obj
+/BusinessLogic/bin/Debug/net6.0
+/Contracts/bin/Debug/net6.0
+/Contracts/obj
+/DataAccess.SQL/bin/Debug/net6.0
+/DataAccess.SQL/obj
+/Shared/bin/Debug/net6.0
+/Shared/obj
+/.editorconfig
