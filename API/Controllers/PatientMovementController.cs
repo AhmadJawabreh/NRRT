@@ -50,8 +50,9 @@ namespace API.Controllers
             var chronometer = new Stopwatch();
             chronometer.Start();
 
+            var totalResources = await _patientMovementManager.CountAsync();
             var resources = await _patientMovementManager.GetItems(filter);
-            return Ok(new ResourceCollection<PatientMovementResource>(resources, resources.Count, chronometer.ElapsedMilliseconds));
+            return Ok(new ResourceCollection<PatientMovementResource>(resources, totalResources, chronometer.ElapsedMilliseconds));
         }
 
         /// <summary>

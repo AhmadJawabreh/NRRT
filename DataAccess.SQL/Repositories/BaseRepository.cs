@@ -53,5 +53,10 @@ namespace DataAccess.SQL.Repositories
         {
             _context.Set<TEntity>().Update(entity);
         }
+
+        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> expression)
+        {
+            return await _context.Set<TEntity>().CountAsync(expression) ;
+        }
     }
 }

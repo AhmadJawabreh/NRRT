@@ -13,5 +13,7 @@ namespace Contracts.V1.Users
 
         public string? Token { get; set; }
 
+        public DateTimeOffset? ExpireAt { get; set; } = default!;
+
     }
 }

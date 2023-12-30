@@ -20,7 +20,8 @@ namespace BusinessLogic.PatientHistory
                 Id = entity.Id,
                 AKI = entity.AKI,
                 Anemia = entity.Anemia,
-                BMI = entity.BMI,
+                Weight = entity.Weight,
+                Height = entity.Height,
                 Cancer = entity.Cancer,
                 DiabetesMellitus = entity.DiabetesMellitus,
                 GFR = entity.GFR,
@@ -50,7 +51,8 @@ namespace BusinessLogic.PatientHistory
                 PatientId = model.PatientId,
                 AKI = model.AKI,
                 Anemia = model.Anemia,
-                BMI = model.Weight / (model.Height * model.Height),
+                Weight = model.Weight,
+                Height = model.Height,
                 Cancer = model.Cancer,
                 DiabetesMellitus = model.DiabetesMellitus,
                 GFR = model.GFR,
@@ -63,6 +65,7 @@ namespace BusinessLogic.PatientHistory
                 Proteinuria = model.Proteinuria,
                 RegularMedications = model.RegularMedications,
                 SerumCeratinine = model.SerumCeratinine,
+                IsDeleted = false
             }.WithTracableInformation(userName, id == 0);
         }
 

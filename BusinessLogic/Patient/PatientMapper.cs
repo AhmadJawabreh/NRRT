@@ -19,7 +19,10 @@ namespace BusinessLogic.Patient
             {
                 Id = entity.Id,
                 Identity = entity.Identity,
-                Name = entity.Name,
+                FirstName = entity.FirstName,
+                FatherName = entity.FatherName,
+                GrandFatherName = entity.GrandFatherName,
+                FamilyName = entity.FamilyName,
                 Age = entity.Age,
                 Gender = entity.Gender,
                 Address = entity.Address,
@@ -39,12 +42,15 @@ namespace BusinessLogic.Patient
             {
                 Id = id,
                 Identity = model.Identity,
+                FirstName = model.FirstName,
+                FatherName = model.FatherName,
+                GrandFatherName = model.GrandFatherName,
+                FamilyName = model.FamilyName,
                 Age = model.Age,
                 Gender = model.Gender,
                 Address = model.Address,
                 Religion = model.Religion,
                 MonthlyIncome = model.MonthlyIncome,
-                Name = $"{model.FirstName} {model.FatherName} {model.GrandfatherName} {model.LastName}",        
             }.WithTracableInformation(userName, id == 0);
         }
 

@@ -15,6 +15,8 @@ namespace DataAccess.SQL.Repositories
             IEnumerable<Expression<Func<TEntity, object>>>? includes = null,
             BaseFilter? pagingFilter = null);
 
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> expression);
+
         Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> expression, IEnumerable<Expression<Func<TEntity, object>>>? includes = null);
 
         void Create(TEntity entity);

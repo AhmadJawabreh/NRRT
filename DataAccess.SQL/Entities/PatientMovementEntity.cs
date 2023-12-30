@@ -45,7 +45,7 @@ namespace DataAccess.SQL.Entities
         /// <summary>
         /// Medical plan for this time.
         /// </summary>
-        public string MedicalPlan { get; set; } = string.Empty;
+        public string? MedicalPlan { get; set; }
 
         /// <summary>
         /// Blood Pressure.
@@ -80,7 +80,7 @@ namespace DataAccess.SQL.Entities
         /// <summary>
         /// Drugs
         /// </summary>
-        public string Drugs { get; set; } = default!;
+        public string? Drugs { get; set; }
 
         /// <summary>
         /// Patient Id.

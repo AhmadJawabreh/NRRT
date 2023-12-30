@@ -59,7 +59,8 @@ namespace BusinessLogic.User
 
             var userEntity = (await _userManager.FindByEmailAsync(model.Email));
 
-            return userEntity.ToResource(GenerateJwtToken(userEntity));
+            var (token, expireAt) = GenerateJwtToken(userEntity);
+            return userEntity.ToResource(token, expireAt);
         }
 
         public async Task<UserResource> UpdateAsync(string id, UserModificationModel model)
@@ -76,9 +77,11 @@ namespace BusinessLogic.User
             
             await _userManager.UpdateAsync(userEntity);
 
+            var (token, expireAt) = GenerateJwtToken(userEntity);
+
             return (await _userManager
                 .FindByEmailAsync(model.Email))
-                .ToResource(GenerateJwtToken(userEntity));
+                .ToResource(token, expireAt);
         }
 
         public async Task<UserResource> ResetPassword(string id, PasswordModificationModel model)
@@ -90,7 +93,8 @@ namespace BusinessLogic.User
                 throw new Exception($"User with {id} does not exist");
             }
 
-            var token = GenerateJwtToken(userEntity);
+            var (token, expireAt) = GenerateJwtToken(userEntity);
+
             var result  = await _userManager.ResetPasswordAsync(userEntity, token, model.NewPassword);
 
             if (result.Errors.Any())
@@ -98,9 +102,11 @@ namespace BusinessLogic.User
                 throw new Exception($"User with {id} does not exist");
             }
 
+             (token, expireAt) = GenerateJwtToken(userEntity);
+
             return (await _userManager
                 .FindByEmailAsync(userEntity.Email))
-                .ToResource(GenerateJwtToken(userEntity));
+                .ToResource(token, expireAt);
         }
 
         public async Task DeleteAsync(string id)
@@ -131,13 +137,15 @@ namespace BusinessLogic.User
                 throw new Exception("Login failed, please check your Email or Password");
             }
 
+            var (token, expireAt) = GenerateJwtToken(userEntity);
             return new()
             {
-                Token = GenerateJwtToken(userEntity)
+                Token = token,
+                ExpireAt = expireAt
             };
         }
 
-        private static string GenerateJwtToken(IdentityUser user)
+        private static (string, DateTimeOffset) GenerateJwtToken(IdentityUser user)
         {
             var jwtHander = new JwtSecurityTokenHandler();
 
@@ -158,8 +166,7 @@ namespace BusinessLogic.User
             };
 
             var token = jwtHander.CreateToken(tolekDescriper);
-
-            return jwtHander.WriteToken(token);
+            return (jwtHander.WriteToken(token), token.ValidTo);
         }
     }
 }

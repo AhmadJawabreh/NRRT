@@ -9,7 +9,6 @@ namespace Contracts.V1.PatientMovement.Models
 {
     public class PatientMovementModel
     {
-
         /// <summary>
         /// Patient id.
         /// </summary>
@@ -28,61 +27,51 @@ namespace Contracts.V1.PatientMovement.Models
         /// <summary>
         /// Clinic Name
         /// </summary>
-        [Required]
         public string ClinicName { get; set; } = string.Empty;
 
         /// <summary>
         /// Specialist Name
         /// </summary>
-        [Required]
         public string SpecialistName { get; set; } = default!;
 
         /// <summary>
         /// Medical plan for this time.
         /// </summary>
-        [Required]
-        public string MedicalPlan { get; set; } = string.Empty;
+        public string? MedicalPlan { get; set; }
 
         /// <summary>
         /// Blood Pressure.
         /// </summary>
-        [Required]
         public int BloodPressure { get; set; }
 
         /// <summary>
         /// Heart Beats
         /// </summary>
-        [Required]
         public int HeartBeats { get; set; }
 
         /// <summary>
         /// Did the patient Have Albumin?
         /// </summary>
-        [Required]
         public bool HaveEdema { get; set; }
 
         /// <summary>
         /// Did the patient take the Contrast Media?
         /// </summary>
-        [Required]
         public bool HaveContrastMedia { get; set; }
 
         /// <summary>
         /// Did the patient have the Cardac Catherterization?
         /// </summary>
-        [Required]
         public bool HaveCardacCatherterization { get; set; }
 
         /// <summary>
         /// Did the patient have drugs?
         /// </summary>
-        [Required]
-
         public bool TakeDrugs { get; set; }
 
         /// <summary>
         /// Drugs
         /// </summary>
-        public string Drugs { get; set; } = default!;
+        public string? Drugs { get; set; }
     }
 }

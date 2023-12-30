@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccess.SQL.Migrations
 {
-    public partial class CreatePatientEntites : Migration
+    public partial class Create_NRRT_Final_Entites_1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -55,7 +55,10 @@ namespace DataAccess.SQL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Identity = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FatherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GrandFatherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FamilyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
                     MonthlyIncome = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
@@ -189,14 +192,14 @@ namespace DataAccess.SQL.Migrations
                     CheckOut = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     ClinicName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SpecialistName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MedicalPlan = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MedicalPlan = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BloodPressure = table.Column<int>(type: "int", nullable: false),
                     HeartBeats = table.Column<int>(type: "int", nullable: false),
                     HaveEdema = table.Column<bool>(type: "bit", nullable: false),
                     HaveContrastMedia = table.Column<bool>(type: "bit", nullable: false),
                     HaveCardacCatherterization = table.Column<bool>(type: "bit", nullable: false),
                     TakeDrugs = table.Column<bool>(type: "bit", nullable: false),
-                    Drugs = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Drugs = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PatientId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -221,7 +224,8 @@ namespace DataAccess.SQL.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BMI = table.Column<double>(type: "float", nullable: false),
+                    Weight = table.Column<double>(type: "float", nullable: false),
+                    Height = table.Column<double>(type: "float", nullable: false),
                     SerumCeratinine = table.Column<int>(type: "int", nullable: false),
                     Anemia = table.Column<int>(type: "int", nullable: false),
                     Proteinuria = table.Column<int>(type: "int", nullable: false),
@@ -237,7 +241,7 @@ namespace DataAccess.SQL.Migrations
                     RegularMedications = table.Column<bool>(type: "bit", nullable: false),
                     OpenHeartSurgery = table.Column<bool>(type: "bit", nullable: false),
                     Triage = table.Column<bool>(type: "bit", nullable: false),
-                    PatientId = table.Column<int>(type: "int", nullable: false),
+                    PatientId = table.Column<int>(type: "int", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
@@ -251,8 +255,7 @@ namespace DataAccess.SQL.Migrations
                         name: "FK_PatientsHistory_Patients_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -303,7 +306,8 @@ namespace DataAccess.SQL.Migrations
                 name: "IX_PatientsHistory_PatientId",
                 table: "PatientsHistory",
                 column: "PatientId",
-                unique: true);
+                unique: true,
+                filter: "[PatientId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

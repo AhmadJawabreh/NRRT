@@ -44,8 +44,24 @@ namespace DataAccess.SQL.Migrations
                     b.Property<DateTimeOffset>("CreatedOn")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("FamilyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FatherName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Gender")
                         .HasColumnType("int");
+
+                    b.Property<string>("GrandFatherName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Identity")
                         .IsRequired()
@@ -62,10 +78,6 @@ namespace DataAccess.SQL.Migrations
 
                     b.Property<int>("MonthlyIncome")
                         .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("PatientHistoryId")
                         .HasColumnType("int");
@@ -92,9 +104,6 @@ namespace DataAccess.SQL.Migrations
                     b.Property<int>("Anemia")
                         .HasColumnType("int");
 
-                    b.Property<double>("BMI")
-                        .HasColumnType("float");
-
                     b.Property<bool>("Cancer")
                         .HasColumnType("bit");
 
@@ -113,6 +122,9 @@ namespace DataAccess.SQL.Migrations
 
                     b.Property<bool>("HeartFailure")
                         .HasColumnType("bit");
+
+                    b.Property<double>("Height")
+                        .HasColumnType("float");
 
                     b.Property<int>("Hematuria")
                         .HasColumnType("int");
@@ -135,7 +147,7 @@ namespace DataAccess.SQL.Migrations
                     b.Property<bool>("OpenHeartSurgery")
                         .HasColumnType("bit");
 
-                    b.Property<int>("PatientId")
+                    b.Property<int?>("PatientId")
                         .HasColumnType("int");
 
                     b.Property<bool>("PreviouskidneyDisease")
@@ -153,10 +165,14 @@ namespace DataAccess.SQL.Migrations
                     b.Property<bool>("Triage")
                         .HasColumnType("bit");
 
+                    b.Property<double>("Weight")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PatientId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[PatientId] IS NOT NULL");
 
                     b.ToTable("PatientsHistory");
                 });
@@ -190,7 +206,6 @@ namespace DataAccess.SQL.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Drugs")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("HaveCardacCatherterization")
@@ -209,7 +224,6 @@ namespace DataAccess.SQL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("MedicalPlan")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ModifiedBy")
@@ -437,9 +451,7 @@ namespace DataAccess.SQL.Migrations
                 {
                     b.HasOne("DataAccess.SQL.Entities.PatientEntity", "Patient")
                         .WithOne("PatientHistory")
-                        .HasForeignKey("DataAccess.SQL.Entities.PatientHistoryEntity", "PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DataAccess.SQL.Entities.PatientHistoryEntity", "PatientId");
 
                     b.Navigation("Patient");
                 });

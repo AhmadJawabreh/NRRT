@@ -12,7 +12,22 @@ namespace Contracts.V1.PatientMovement.Resources
         /// <summary>
         /// Patient Movement Id.
         /// </summary>
-        public int Id;
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Patient Id.
+        /// </summary>
+        public int PatientId { get; set; }
+
+        /// <summary>
+        /// Patient Name.
+        /// </summary>
+        public string PatientName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Patient Identity.
+        /// </summary>
+        public string PatientIdentity { get; set; } = string.Empty;
 
         /// <summary>
         /// Patient check in.
@@ -37,7 +52,7 @@ namespace Contracts.V1.PatientMovement.Resources
         /// <summary>
         /// Medical plan for this time.
         /// </summary>
-        public string MedicalPlan { get; set; } = string.Empty;
+        public string? MedicalPlan { get; set; }
 
         /// <summary>
         /// Blood Pressure.
@@ -72,6 +87,6 @@ namespace Contracts.V1.PatientMovement.Resources
         /// <summary>
         /// Drugs
         /// </summary>
-        public string Drugs { get; set; } = default!;
+        public string? Drugs { get; set; }
     }
 }

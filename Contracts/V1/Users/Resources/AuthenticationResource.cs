@@ -8,5 +8,6 @@ namespace Contracts.V1.Users.Resources
     public class AuthenticationResource
     {
         public string? Token { get; set; }
+        public DateTimeOffset ExpireAt { get; set; }
     }
 }

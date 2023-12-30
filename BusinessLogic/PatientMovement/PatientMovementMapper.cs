@@ -15,7 +15,10 @@ namespace BusinessLogic.PatientMovement
         {
             return new()
             {
-                Id = entity.Id,                 
+                Id = entity.Id,
+                PatientId =entity.PatientId,
+                PatientName = entity.Patient.FirstName + " " + entity.Patient.FamilyName,
+                PatientIdentity = entity.Patient.Identity,
                 ClinicName = entity.ClinicName,
                 SpecialistName = entity.SpecialistName,
                 CheckIn = entity.CheckIn,
@@ -51,6 +54,7 @@ namespace BusinessLogic.PatientMovement
                 HeartBeats = model.HeartBeats,
                 MedicalPlan = model.MedicalPlan,
                 HaveCardacCatherterization = model.HaveCardacCatherterization,
+                TakeDrugs= model.TakeDrugs,
                 Drugs = model.Drugs,
             }.WithTracableInformation(userName, id == 0);
         }

@@ -10,6 +10,11 @@ namespace Contracts.V1
     public class PatientMovementListFilter : BaseFilter
     {
         /// <summary>
+        /// PAtient Movement Id
+        /// </summary>
+        public int? Id { get; set; }
+
+        /// <summary>
         /// Patient check in.
         /// </summary>
         public DateTimeOffset? CheckIn { get; set; }

@@ -29,9 +29,24 @@ namespace DataAccess.SQL.Entities
         public string Identity { get; set; } = string.Empty;
 
         /// <summary>
-        /// Patient Name
+        /// Patient First Name
         /// </summary>
-        public string Name { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Patient First Name
+        /// </summary>
+        public string FatherName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Patient First Name
+        /// </summary>
+        public string GrandFatherName { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Patient First Name
+        /// </summary>
+        public string FamilyName { get; set; } = string.Empty;
 
         /// <summary>
         /// Patient Age

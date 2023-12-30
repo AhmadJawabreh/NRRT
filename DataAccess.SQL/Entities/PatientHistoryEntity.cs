@@ -23,9 +23,14 @@ namespace DataAccess.SQL.Entities
         public int Id { get; set; }
 
         /// <summary>
-        /// Body Mass Index
+        /// Patient weight
         /// </summary>
-        public double BMI { get; set; }
+        public double Weight { get; set; }
+
+        /// <summary>
+        /// Patient height
+        /// </summary>
+        public double Height { get; set; }
 
         /// <summary>
         /// Serum Ceratinine
@@ -104,7 +109,7 @@ namespace DataAccess.SQL.Entities
         /// <summary>
         /// Patient Id
         /// </summary>
-        public int PatientId { get; set; }
+        public int? PatientId { get; set; }
 
         public PatientEntity? Patient { get; set; }
 

@@ -15,13 +15,13 @@ namespace Shared.Filters
         /// <summary>
         /// Skip Items.
         /// </summary>
-        [Range(1, int.MaxValue)]
+        [Range(0, int.MaxValue)]
         public int? Skip { get; set; }
 
         /// <summary>
         /// Take Items.
         /// </summary>
-        [Range(1, 1000)]
+        [Range(0, int.MaxValue)]
         public int? Take { get; set; }
     }
 }

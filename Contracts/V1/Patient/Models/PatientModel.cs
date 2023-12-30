@@ -27,13 +27,13 @@ namespace Contracts.V1.Patient.Models
         /// Patient First Name
         /// </summary>
         [Required]
-        public string GrandfatherName { get; set; } = string.Empty;
+        public string GrandFatherName { get; set; } = string.Empty;
 
         /// <summary>
         /// Patient First Name
         /// </summary>
         [Required]
-        public string LastName { get; set; } = string.Empty;
+        public string FamilyName { get; set; } = string.Empty;
 
         /// <summary>
         /// Patient Identity

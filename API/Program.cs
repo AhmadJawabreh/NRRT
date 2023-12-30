@@ -45,8 +45,7 @@ builder.Services.AddAuthentication( builder =>
         ValidateIssuer = false,
         ValidateAudience = false,
         RequireExpirationTime = true,
-        ValidateLifetime = true,
-        
+        ValidateLifetime = true,      
     };
 });
 
@@ -97,6 +96,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+ ";
 });
 
+
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPatientManager, PatientManager>();
 builder.Services.AddScoped<IPatientHistoryManager, PatientHistoryManager>();
@@ -116,6 +117,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(builder =>
+{
+    builder.WithOrigins("*");
+    builder.AllowAnyHeader();
+    builder.AllowAnyMethod();
+});
 
 app.UseHttpsRedirection();
 

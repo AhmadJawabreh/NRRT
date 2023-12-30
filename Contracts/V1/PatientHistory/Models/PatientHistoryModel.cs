@@ -16,12 +16,12 @@ namespace Contracts.V1.PatientHistory.Models
         public int PatientId { get; set; }
 
         /// <summary>
-        /// PAtient weight
+        /// Patient weight
         /// </summary>
         public double Weight { get; set; }
 
         /// <summary>
-        /// PAtient height
+        /// Patient height
         /// </summary>
         public double Height { get; set; }
 

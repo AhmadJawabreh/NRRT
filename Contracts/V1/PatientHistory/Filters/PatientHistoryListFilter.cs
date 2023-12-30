@@ -10,6 +10,11 @@ namespace Contracts.V1.PatientHistory.Filters
     public class PatientHistoryListFilter : BaseFilter
     {
         /// <summary>
+        /// History Id
+        /// </summary>
+        public int? Id { get; set; }
+
+        /// <summary>
         /// Patient Id
         /// </summary>
         public int? PatientId { get; set; }

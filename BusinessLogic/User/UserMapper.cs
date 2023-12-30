@@ -14,13 +14,14 @@ namespace BusinessLogic.User
             };
         }
 
-        public static UserResource ToResource(this IdentityUser entity, string? token = null)
+        public static UserResource ToResource(this IdentityUser entity, string? token = null, DateTimeOffset? expireAt = null)
         {
             return new()
             {
                 UserName = entity.UserName,
                 Email = entity.Email,
-                Token = token
+                Token = token,
+                ExpireAt = expireAt
             };
         }
     }

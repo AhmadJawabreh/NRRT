@@ -28,14 +28,7 @@ namespace DataAccess.SQL.ApplicationDbContext
 
             modelBuilder.Entity<PatientEntity>().HasQueryFilter(item => !item.IsDeleted);
 
-            modelBuilder.Entity<PatientHistoryEntity>().HasQueryFilter(item => !item.IsDeleted);
-
             modelBuilder.Entity<PatientMovementEntity>().HasQueryFilter(item => !item.IsDeleted);
-
-            modelBuilder.Entity<PatientHistoryEntity>()
-                .HasOne(entity => entity.Patient)
-                .WithOne(entity => entity.PatientHistory)
-                .HasForeignKey<PatientEntity>(entity => entity.PatientHistoryId);
 
             modelBuilder.Entity<PatientEntity>()
                 .HasOne(entity => entity.PatientHistory)

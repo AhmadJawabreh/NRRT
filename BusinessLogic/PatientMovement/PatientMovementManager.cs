@@ -8,10 +8,11 @@ using Contracts.V1.PatientMovement.Models;
 using Contracts.V1.PatientMovement.Resources;
 using DataAccess.SQL.Entities;
 using DataAccess.SQL.UnitOfWork;
+using Microsoft.AspNetCore.Http;
 using Shared.Constants;
 using Shared.GlobalExceptionHandler.Exceptions;
 using System.Linq.Expressions;
-
+using System.Security.Claims;
 
 namespace BusinessLogic.PatientMovement
 {
@@ -26,24 +27,29 @@ namespace BusinessLogic.PatientMovement
         public Task<PatientMovementResource> UpdateAsync(int id, PatientMovementModel model);
 
         public Task DeleteAsync(int id);
+
+        public Task<int> CountAsync();
+
     }
 
     public class PatientMovementManager : IPatientMovementManager
     {
         private readonly string _userName;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly List<Expression<Func<PatientMovementEntity, object>>> _includes = new() { x => x.Patient };
 
-        public PatientMovementManager(IUnitOfWork unitOfWork)
+        public PatientMovementManager(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
-            _userName = string.Empty;
+            _userName = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
         }
 
         public async Task<List<PatientMovementResource>> GetItems(PatientMovementListFilter filter)
         {
             return (await _unitOfWork
                 .PatientMovementRepository
-                .GetIteamsAsync(GetExpressions(filter), null, filter))
+                .GetIteamsAsync(GetExpressions(filter), _includes, filter))
                 .Select(item => item.ToResource()).ToList();
         }
 
@@ -89,9 +95,14 @@ namespace BusinessLogic.PatientMovement
             await _unitOfWork.SaveChanges();
         }
 
+        public async Task<int> CountAsync()
+        {
+            return await _unitOfWork.PatientMovementRepository.CountAsync(x => !x.IsDeleted);
+        }
+
         private async Task<PatientMovementEntity> GetPatientMovement(int id)
         {
-            var entity = await _unitOfWork.PatientMovementRepository.FirstOrDefaultAsync(item => item.Id == id);
+            var entity = await _unitOfWork.PatientMovementRepository.FirstOrDefaultAsync(item => item.Id == id, _includes);
 
             if (entity is null)
             {
@@ -104,6 +115,11 @@ namespace BusinessLogic.PatientMovement
         private static List<Expression<Func<PatientMovementEntity, bool>>> GetExpressions(PatientMovementListFilter filter)
         {
             List<Expression<Func<PatientMovementEntity, bool>>> experssions = new();
+
+            if(filter.Id is not 0)
+            {
+                experssions.Add(item => item.Id == filter.Id);
+            }
 
             if (filter.CheckIn is not null)
             {

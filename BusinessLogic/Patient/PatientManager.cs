@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Shared.Constants;
 using Shared.GlobalExceptionHandler.Exceptions;
 using System.Linq.Expressions;
+using System.Security.Claims;
 
 namespace BusinessLogic.Patient
 {
@@ -26,20 +27,20 @@ namespace BusinessLogic.Patient
         public Task<PatientResource> UpdateAsync(int id, PatientModel model);
 
         public Task DeleteAsync(int id);
+
+        public Task<int> CountAsync();
     }
 
     public class PatientManager : IPatientManager
     {
         private readonly string _userName = default!;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly List<Expression<Func<PatientEntity, object>>> _includes = new() { x => x.PatientHistory, x=> x.Movements };
+        private readonly List<Expression<Func<PatientEntity, object>>> _includes = new() { x => x.PatientHistory!, x=> x.Movements };
 
         public PatientManager(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
-            _httpContextAccessor = httpContextAccessor;
-            _userName = _httpContextAccessor.HttpContext.User.Identity?.Name ?? "test";
+            _userName = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
         }
 
         public async Task<List<PatientResource>> GetItems(PatientFilter filter)
@@ -57,6 +58,13 @@ namespace BusinessLogic.Patient
 
         public async Task<PatientResource> CreateAsync(PatientModel model)
         {
+            var isPatientIDExist = await _unitOfWork.PatientRepository.FirstOrDefaultAsync(x=> x.Identity == model.Identity);
+
+            if (isPatientIDExist != null)
+            {
+                throw new ConflictException(nameof(PatientEntity.Id), ValidationMessages.PatientIsExist(model.Identity));
+
+            }
             var entity = model.ToEntity(_userName);
 
             _unitOfWork.PatientRepository.Create(entity);
@@ -68,6 +76,14 @@ namespace BusinessLogic.Patient
 
         public async Task<PatientResource> UpdateAsync(int id, PatientModel model)
         {
+            var isPatientIDExist = await _unitOfWork.PatientRepository.FirstOrDefaultAsync(x => x.Identity == model.Identity && x.Id != id);
+
+            if (isPatientIDExist != null)
+            {
+                throw new ConflictException(nameof(PatientEntity.Id), ValidationMessages.PatientIsExist(model.Identity));
+
+            }
+
             var entity = await GetPatientById(id);
 
             var updatedPatient = model.ToEntity(_userName, id);
@@ -84,6 +100,10 @@ namespace BusinessLogic.Patient
         public async Task DeleteAsync(int id)
         {
             var entity = await GetPatientById(id);
+
+            await ThrowConflictExceptionWhenPatientHasOneOrMoreMovements(id);
+
+            await ThrowConflictExceptionWhenPatientHasMedicalHistory(id);
 
             entity.WithDeletedInformation(_userName);
 
@@ -104,18 +124,48 @@ namespace BusinessLogic.Patient
             return entity;
         }
 
+        private async Task ThrowConflictExceptionWhenPatientHasMedicalHistory(int patientId)
+        {
+            var hasActiveMedicalHistory = await _unitOfWork.PatientHistoryRepository.CountAsync(item => item.PatientId == patientId && !item.IsDeleted) is not 0;
+
+            if (hasActiveMedicalHistory)
+            {
+                throw new ConflictException(nameof(PatientEntity.Id), ValidationMessages.PatientHasMedicalHistory);
+            }
+        }
+
+        private async Task ThrowConflictExceptionWhenPatientHasOneOrMoreMovements(int patientId)
+        {
+            var hasActiveMovements = await _unitOfWork.PatientMovementRepository.CountAsync(item => item.PatientId == patientId && !item.IsDeleted) is not 0;
+
+            if (hasActiveMovements)
+            {
+                throw new ConflictException(nameof(PatientEntity.Id), ValidationMessages.PatientHasOneOrMoreMovements);
+            }
+        }
+
         private static List<Expression<Func<PatientEntity, bool>>> GetExpressions(PatientFilter filter)
         {
             List<Expression<Func<PatientEntity, bool>>> experssions = new();
+
+            if(filter.Id is not 0)
+            {
+                experssions.Add(item => item.Id == filter.Id);
+            }
 
             if (filter.Identity is not null)
             {
                 experssions.Add(item => item.Identity == filter.Identity);
             }
 
-            if (filter.Name is not null)
+            if (filter.FirstName is not null)
             {
-                experssions.Add(item => item.Name.Contains(filter.Name));
+                experssions.Add(item => item.FirstName.Contains(filter.FirstName));
+            }
+
+            if (filter.LastName is not null)
+            {
+                experssions.Add(item => item.FirstName.Contains(filter.LastName));
             }
 
             if (filter.Age is not null)
@@ -129,6 +179,11 @@ namespace BusinessLogic.Patient
             }
 
             return experssions;
+        }
+
+        public async Task<int> CountAsync()
+        {
+           return await _unitOfWork.PatientRepository.CountAsync(x => !x.IsDeleted);
         }
     }
 }

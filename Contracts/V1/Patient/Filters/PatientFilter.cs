@@ -11,14 +11,24 @@ namespace Contracts.V1.Patient.Filters
     public class PatientFilter : BaseFilter
     {
         /// <summary>
+        /// Patient Id
+        /// </summary>
+        public int? Id { get; set; }
+
+        /// <summary>
         /// Patient Identity
         /// </summary>
         public string? Identity { get; set; }
 
         /// <summary>
-        /// Patient Name
+        /// Patient First Name
         /// </summary>
-        public string? Name { get; set; }
+        public string? FirstName { get; set; }
+
+        /// <summary>
+        /// Patient Last Name
+        /// </summary>
+        public string? LastName { get; set; }
 
         /// <summary>
         /// Patient Age
