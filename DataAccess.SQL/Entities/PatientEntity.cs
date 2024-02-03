@@ -73,15 +73,39 @@ namespace DataAccess.SQL.Entities
         public string Address { get; set; } = string.Empty;
 
         /// <summary>
+        /// Phone Number
+        /// </summary>
+        public string PhoneNumber { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Phone Number
+        /// </summary>
+        public LevelsEducations EducationLevel { get; set; }
+
+        /// <summary>
         /// Is Deleted
         /// </summary>
         public bool IsDeleted { get; set; }
+
+        /// <summary>
+        /// Team Id
+        /// </summary>
+        public int TeamId { get; set; }
+
+        public TeamEntity? Team { get; set; }
 
         /// <summary>
         /// Patient History Id
         /// </summary>
         public int? PatientHistoryId { get; set; }
         public PatientHistoryEntity? PatientHistory { get; set; }
+
+        /// <summary>
+        /// Acute Kidney Injury Risk Assessment Id
+        /// </summary>
+        public int AcuteKidneyInjuryRiskAssessmentId { get; set; }
+
+        public AcuteKidneyInjuryRiskAssessmentEntity? AcuteKidneyInjuryRiskAssessmentEntity { get; set; }
 
         /// <summary>
         /// The Patient Movements.

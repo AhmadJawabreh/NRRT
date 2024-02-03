@@ -10,6 +10,10 @@ namespace Contracts.V1.Patient.Models
 {
     public class PatientModel
     {
+        /// <summary>
+        /// Team Id
+        /// </summary>
+        public int TeamId { get; set; }
 
         /// <summary>
         /// Patient First Name
@@ -50,6 +54,16 @@ namespace Contracts.V1.Patient.Models
         /// </summary>
         [Required]
         public int MonthlyIncome { get; set; }
+
+        /// <summary>
+        /// Phone Number
+        /// </summary>
+        public string PhoneNumber { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Phone Number
+        /// </summary>
+        public LevelsEducations EducationLevel { get; set; }
 
         /// <summary>
         /// Gender

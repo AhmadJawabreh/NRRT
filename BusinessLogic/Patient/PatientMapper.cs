@@ -5,6 +5,7 @@
 
 using BusinessLogic.PatientHistory;
 using BusinessLogic.PatientMovement;
+using BusinessLogic.Team;
 using Contracts.V1.Patient.Models;
 using Contracts.V1.Patient.Resources;
 using DataAccess.SQL.Entities;
@@ -28,6 +29,9 @@ namespace BusinessLogic.Patient
                 Address = entity.Address,
                 Religion = entity.Religion,
                 MonthlyIncome = entity.MonthlyIncome,
+                PhoneNumber = entity.PhoneNumber,
+                EducationLevel = entity.EducationLevel,
+                Team = entity.Team!.ToResource(),
                 Movements = entity.Movements.Select(item=> item.ToResource()).ToList(),
                 CreatedBy = entity.CreatedBy,
                 CreatedOn = entity.CreatedOn,
@@ -41,12 +45,15 @@ namespace BusinessLogic.Patient
             return new PatientEntity()
             {
                 Id = id,
+                TeamId = model.TeamId,
                 Identity = model.Identity,
                 FirstName = model.FirstName,
                 FatherName = model.FatherName,
                 GrandFatherName = model.GrandFatherName,
                 FamilyName = model.FamilyName,
                 Age = model.Age,
+                PhoneNumber = model.PhoneNumber,
+                EducationLevel = model.EducationLevel,
                 Gender = model.Gender,
                 Address = model.Address,
                 Religion = model.Religion,

@@ -12,11 +12,17 @@ namespace DataAccess.SQL.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
+        private IRepository<TeamEntity> _teamRepository;
+
+        private IRepository<TeamMemberEntity> _teamMemberRepository;
+
         private IRepository<PatientEntity> _patientRepository;
 
         private IRepository<PatientMovementEntity> _patientMovementRepository;
 
         private IRepository<PatientHistoryEntity> _patientHistoryRepository;
+
+        private IRepository<AcuteKidneyInjuryRiskAssessmentEntity> _acuteKidneyInjuryRiskAssessmentRepository;
 
         private readonly AppDbContext _context;
 
@@ -46,6 +52,29 @@ namespace DataAccess.SQL.UnitOfWork
             }
         }
 
+        public IRepository<AcuteKidneyInjuryRiskAssessmentEntity> AcuteKidneyInjuryRiskAssessmentRepository
+        {
+            get
+            {
+                return _acuteKidneyInjuryRiskAssessmentRepository ??= new BaseRepository<AcuteKidneyInjuryRiskAssessmentEntity>(_context);
+            }
+        }
+
+        public IRepository<TeamEntity> TeamRepository
+        {
+            get
+            {
+                return _teamRepository ??= new BaseRepository<TeamEntity>(_context);
+            }
+        }
+
+        public IRepository<TeamMemberEntity> TeamMemberRepository
+        {
+            get
+            {
+                return _teamMemberRepository ??= new BaseRepository<TeamMemberEntity>(_context);
+            }
+        }
         public async Task SaveChanges()
         {
             await _context.SaveChangesAsync();

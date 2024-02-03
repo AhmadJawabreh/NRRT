@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccess.SQL.Migrations
 {
-    public partial class Create_NRRT_Final_Entites_1 : Migration
+    public partial class Create_NRRT_Final_Entites_Part_one : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,23 +49,14 @@ namespace DataAccess.SQL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Patients",
+                name: "Teams",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Identity = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FatherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GrandFatherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FamilyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Age = table.Column<int>(type: "int", nullable: false),
-                    MonthlyIncome = table.Column<int>(type: "int", nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: false),
-                    Religion = table.Column<int>(type: "int", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    PatientHistoryId = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -73,7 +64,7 @@ namespace DataAccess.SQL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Patients", x => x.Id);
+                    table.PrimaryKey("PK_Teams", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -183,6 +174,137 @@ namespace DataAccess.SQL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Patients",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Identity = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FatherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GrandFatherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FamilyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    MonthlyIncome = table.Column<int>(type: "int", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    Religion = table.Column<int>(type: "int", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EducationLevel = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: false),
+                    PatientHistoryId = table.Column<int>(type: "int", nullable: true),
+                    AcuteKidneyInjuryRiskAssessmentId = table.Column<int>(type: "int", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Patients", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Patients_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TeamMember",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FatherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GrandFatherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    TeamId = table.Column<int>(type: "int", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeamMember", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TeamMember_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AcuteKidneyInjuryRiskAssessment",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HasSepsis = table.Column<bool>(type: "bit", nullable: false),
+                    SepsisDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasCriticalIllness = table.Column<bool>(type: "bit", nullable: false),
+                    CriticalIllnessDeatils = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasCirculatoryShock = table.Column<bool>(type: "bit", nullable: false),
+                    CirculatoryShockDeatils = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasBurns = table.Column<bool>(type: "bit", nullable: false),
+                    BurnsDeatis = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Trauma = table.Column<bool>(type: "bit", nullable: false),
+                    TraumaDeatils = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasCardiacSurgery = table.Column<bool>(type: "bit", nullable: false),
+                    CardiacSurgeryDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasMajorNoncardiacSurgery = table.Column<bool>(type: "bit", nullable: false),
+                    MajorNoncardiacSurgeryDeatils = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasNephrotoxicDrugs = table.Column<bool>(type: "bit", nullable: false),
+                    NephrotoxicDrugsDeatils = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasRadiocontrastAgents = table.Column<bool>(type: "bit", nullable: false),
+                    RadiocontrastAgentsDeatils = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasPoisonousPlantesAndAnimals = table.Column<bool>(type: "bit", nullable: false),
+                    PoisonousPlantesAndAnimalsDeatils = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasDehydration = table.Column<bool>(type: "bit", nullable: false),
+                    DehydrationsDeatils = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasCDK = table.Column<bool>(type: "bit", nullable: false),
+                    CDKDeatils = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasCancer = table.Column<bool>(type: "bit", nullable: false),
+                    CancerDeatils = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DiabetesMellitus = table.Column<bool>(type: "bit", nullable: false),
+                    DiabetesMellitusDeatils = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasLiverDisease = table.Column<bool>(type: "bit", nullable: false),
+                    LiverDiseaseDeatils = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasHeartDisease = table.Column<bool>(type: "bit", nullable: false),
+                    HearDiseasetDeatils = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasLungDisease = table.Column<bool>(type: "bit", nullable: false),
+                    LungDiseaseDeatils = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Anemia = table.Column<int>(type: "int", nullable: false),
+                    SerumCeratinine = table.Column<int>(type: "int", nullable: false),
+                    BlackRace = table.Column<bool>(type: "bit", nullable: false),
+                    Triage = table.Column<bool>(type: "bit", nullable: false),
+                    PatientId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    ModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AcuteKidneyInjuryRiskAssessment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AcuteKidneyInjuryRiskAssessment_Patients_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "Patients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PatientMovements",
                 columns: table => new
                 {
@@ -190,10 +312,10 @@ namespace DataAccess.SQL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CheckIn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CheckOut = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    ClinicName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DepartmentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SpecialistName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MedicalPlan = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BloodPressure = table.Column<int>(type: "int", nullable: false),
+                    BloodPressure = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HeartBeats = table.Column<int>(type: "int", nullable: false),
                     HaveEdema = table.Column<bool>(type: "bit", nullable: false),
                     HaveContrastMedia = table.Column<bool>(type: "bit", nullable: false),
@@ -226,21 +348,16 @@ namespace DataAccess.SQL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Weight = table.Column<double>(type: "float", nullable: false),
                     Height = table.Column<double>(type: "float", nullable: false),
-                    SerumCeratinine = table.Column<int>(type: "int", nullable: false),
-                    Anemia = table.Column<int>(type: "int", nullable: false),
                     Proteinuria = table.Column<int>(type: "int", nullable: false),
                     Hematuria = table.Column<int>(type: "int", nullable: false),
                     AKI = table.Column<int>(type: "int", nullable: false),
                     GFR = table.Column<int>(type: "int", nullable: false),
-                    DiabetesMellitus = table.Column<bool>(type: "bit", nullable: false),
                     Hypertension = table.Column<bool>(type: "bit", nullable: false),
-                    PreviouskidneyDisease = table.Column<bool>(type: "bit", nullable: false),
+                    KidneyDisease = table.Column<bool>(type: "bit", nullable: false),
                     HeartFailure = table.Column<bool>(type: "bit", nullable: false),
                     Hepatitis = table.Column<bool>(type: "bit", nullable: false),
-                    Cancer = table.Column<bool>(type: "bit", nullable: false),
                     RegularMedications = table.Column<bool>(type: "bit", nullable: false),
                     OpenHeartSurgery = table.Column<bool>(type: "bit", nullable: false),
-                    Triage = table.Column<bool>(type: "bit", nullable: false),
                     PatientId = table.Column<int>(type: "int", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -257,6 +374,12 @@ namespace DataAccess.SQL.Migrations
                         principalTable: "Patients",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AcuteKidneyInjuryRiskAssessment_PatientId",
+                table: "AcuteKidneyInjuryRiskAssessment",
+                column: "PatientId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -303,15 +426,28 @@ namespace DataAccess.SQL.Migrations
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Patients_TeamId",
+                table: "Patients",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PatientsHistory_PatientId",
                 table: "PatientsHistory",
                 column: "PatientId",
                 unique: true,
                 filter: "[PatientId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamMember_TeamId",
+                table: "TeamMember",
+                column: "TeamId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AcuteKidneyInjuryRiskAssessment");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -334,6 +470,9 @@ namespace DataAccess.SQL.Migrations
                 name: "PatientsHistory");
 
             migrationBuilder.DropTable(
+                name: "TeamMember");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -341,6 +480,9 @@ namespace DataAccess.SQL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Patients");
+
+            migrationBuilder.DropTable(
+                name: "Teams");
         }
     }
 }

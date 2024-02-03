@@ -42,3 +42,9 @@
 /Shared/bin/Debug/net6.0
 /Shared/obj
 /.editorconfig
+/API/bin/Release/net6.0
+/API/Properties
+/BusinessLogic/bin/Release/net6.0
+/Contracts/bin/Release/net6.0
+/DataAccess.SQL/bin/Release/net6.0
+/Shared/bin/Release/net6.0

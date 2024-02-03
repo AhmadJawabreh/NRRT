@@ -155,19 +155,9 @@ namespace BusinessLogic.PatientHistory
                 experssions.Add(item => item.Id == filter.Id);
             }
 
-            if (filter.Cancer is not null)
-            {
-                experssions.Add(item => item.Cancer == filter.Cancer);
-            }
-
             if (filter.AKI is not null)
             {
                 experssions.Add(item => item.AKI == filter.AKI);
-            }
-
-            if (filter.Triage is not null)
-            {
-                experssions.Add(item => item.Triage == filter.Triage);
             }
 
             if (filter.Hypertension is not null)

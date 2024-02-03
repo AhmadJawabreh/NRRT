@@ -19,7 +19,7 @@ namespace BusinessLogic.PatientMovement
                 PatientId =entity.PatientId,
                 PatientName = entity.Patient.FirstName + " " + entity.Patient.FamilyName,
                 PatientIdentity = entity.Patient.Identity,
-                ClinicName = entity.ClinicName,
+                DepartmentName = entity.DepartmentName,
                 SpecialistName = entity.SpecialistName,
                 CheckIn = entity.CheckIn,
                 CheckOut = entity.CheckOut,
@@ -44,7 +44,7 @@ namespace BusinessLogic.PatientMovement
             {
                 Id = id,
                 PatientId = model.PatientId,
-                ClinicName = model.ClinicName,
+                DepartmentName = model.DepartmentName,
                 SpecialistName = model.SpecialistName,
                 CheckIn = model.CheckIn,
                 CheckOut = model.CheckOut,

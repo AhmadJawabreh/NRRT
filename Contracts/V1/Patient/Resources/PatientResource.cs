@@ -4,6 +4,7 @@
  */
 
 using Contracts.V1.PatientMovement.Resources;
+using Contracts.V1.Team.Resources;
 using Shared.Enum;
 using Shared.Models;
 
@@ -51,6 +52,16 @@ namespace Contracts.V1.Patient.Resources
         public int MonthlyIncome { get; set; }
 
         /// <summary>
+        /// Phone Number
+        /// </summary>
+        public string PhoneNumber { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Phone Number
+        /// </summary>
+        public LevelsEducations EducationLevel { get; set; }
+
+        /// <summary>
         /// Gender
         /// </summary>
         public Gender Gender { get; set; }
@@ -64,6 +75,11 @@ namespace Contracts.V1.Patient.Resources
         /// Pateint location
         /// </summary>
         public string Address { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Team
+        /// </summary>
+        public TeamResource? Team { get; set; }
 
         /// <summary>
         /// Patient Movements

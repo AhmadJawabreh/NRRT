@@ -68,7 +68,7 @@ namespace Contracts.V1.PatientHistory.Resources
         /// <summary>
         /// Does the patient have Previous kidney Disease?
         /// </summary>
-        public bool PreviouskidneyDisease { get; set; }
+        public bool KidneyDisease { get; set; }
 
         /// <summary>
         /// Does the patient have Heart Failure?

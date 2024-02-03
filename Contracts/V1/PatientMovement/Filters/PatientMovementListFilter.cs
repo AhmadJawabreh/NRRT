@@ -25,9 +25,9 @@ namespace Contracts.V1
         public DateTimeOffset? CheckOut { get; set; }
 
         /// <summary>
-        /// Clinic Name
+        /// Department Name
         /// </summary>
-        public string? ClinicName { get; set; }
+        public string? DepartmentName { get; set; }
 
         /// <summary>
         /// Specialist Name

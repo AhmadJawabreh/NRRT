@@ -26,16 +26,6 @@ namespace Contracts.V1.PatientHistory.Models
         public double Height { get; set; }
 
         /// <summary>
-        /// Serum Ceratinine
-        /// </summary>
-        public int SerumCeratinine { get; set; }
-
-        /// <summary>
-        /// Anemia
-        /// </summary>
-        public int Anemia { get; set; }
-
-        /// <summary>
         /// Proteinuria
         /// </summary>
         public int Proteinuria { get; set; }
@@ -54,10 +44,6 @@ namespace Contracts.V1.PatientHistory.Models
         /// Glomerular Giltration Rate
         /// </summary>
         public int GFR { get; set; }
-        /// <summary>
-        /// Does the patient have DiabetesMellitus?
-        /// </summary>
-        public bool DiabetesMellitus { get; set; }
 
         /// <summary>
         /// Does the patient have hypertension?
@@ -65,9 +51,9 @@ namespace Contracts.V1.PatientHistory.Models
         public bool Hypertension { get; set; }
 
         /// <summary>
-        /// Does the patient have Previous kidney Disease?
+        /// Does the patient have kidney Disease?
         /// </summary>
-        public bool PreviouskidneyDisease { get; set; }
+        public bool KidneyDisease { get; set; }
 
         /// <summary>
         /// Does the patient have Heart Failure?
@@ -78,11 +64,6 @@ namespace Contracts.V1.PatientHistory.Models
         /// Does the patient have Hepatitis?
         /// </summary>
         public bool Hepatitis { get; set; }
-
-        /// <summary>
-        /// Does the patient have Cancer?
-        /// </summary>
-        public bool Cancer { get; set; }
 
         /// <summary>
         /// Does the patient have Regular Medications?

@@ -136,9 +136,9 @@ namespace BusinessLogic.PatientMovement
                 experssions.Add(item => item.CheckOut == filter.CheckOut);
             }
 
-            if (filter.ClinicName is not null)
+            if (filter.DepartmentName is not null)
             {
-                experssions.Add(item => item.ClinicName == filter.ClinicName);
+                experssions.Add(item => item.DepartmentName == filter.DepartmentName);
             }
 
             if (filter.SpecialistName is not null)

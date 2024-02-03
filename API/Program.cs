@@ -3,9 +3,12 @@
  * All rights reserved.
  */
 
+using BusinessLogic.AcuteKidneyInjuryRiskAssessment;
 using BusinessLogic.Patient;
 using BusinessLogic.PatientHistory;
 using BusinessLogic.PatientMovement;
+using BusinessLogic.Team;
+using BusinessLogic.TeamMember;
 using BusinessLogic.User;
 using DataAccess.SQL.ApplicationDbContext;
 using DataAccess.SQL.UnitOfWork;
@@ -80,7 +83,7 @@ builder.Services.AddSwaggerGen(options =>
                     Id="Bearer"
                 }
             },
-            new string[]{}
+            Array.Empty<string>()
         }
     });
 
@@ -100,8 +103,11 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPatientManager, PatientManager>();
+builder.Services.AddScoped<ITeamManager, TeamManager>();
+builder.Services.AddScoped<ITeamMemberManager, TeamMemberManager>();
 builder.Services.AddScoped<IPatientHistoryManager, PatientHistoryManager>();
 builder.Services.AddScoped<IPatientMovementManager, PatientMovementManager>();
+builder.Services.AddScoped<IAcuteKidneyInjuryRiskAssessmentManager, AcuteKidneyInjuryRiskAssessmentManager>();
 builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddDbContextFactory<AppDbContext>();
 
@@ -112,7 +118,7 @@ builder.Services
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+//if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();

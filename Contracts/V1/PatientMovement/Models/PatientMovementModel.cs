@@ -25,9 +25,9 @@ namespace Contracts.V1.PatientMovement.Models
         public DateTimeOffset? CheckOut { get; set; }
 
         /// <summary>
-        /// Clinic Name
+        /// Department Name
         /// </summary>
-        public string ClinicName { get; set; } = string.Empty;
+        public string DepartmentName { get; set; } = string.Empty;
 
         /// <summary>
         /// Specialist Name
@@ -42,7 +42,7 @@ namespace Contracts.V1.PatientMovement.Models
         /// <summary>
         /// Blood Pressure.
         /// </summary>
-        public int BloodPressure { get; set; }
+        public string BloodPressure { get; set; } = default!;
 
         /// <summary>
         /// Heart Beats

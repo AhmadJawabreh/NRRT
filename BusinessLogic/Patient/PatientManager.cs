@@ -35,7 +35,7 @@ namespace BusinessLogic.Patient
     {
         private readonly string _userName = default!;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly List<Expression<Func<PatientEntity, object>>> _includes = new() { x => x.PatientHistory!, x=> x.Movements };
+        private readonly List<Expression<Func<PatientEntity, object>>> _includes = new() { x => x.PatientHistory!, x=> x.Movements, x=> x.Team! };
 
         public PatientManager(IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor)
         {

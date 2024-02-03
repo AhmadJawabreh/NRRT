@@ -22,6 +22,155 @@ namespace DataAccess.SQL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("DataAccess.SQL.Entities.AcuteKidneyInjuryRiskAssessmentEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Anemia")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("BlackRace")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("BurnsDeatis")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CDKDeatils")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CancerDeatils")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CardiacSurgeryDetails")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CirculatoryShockDeatils")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CriticalIllnessDeatils")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DehydrationsDeatils")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("DiabetesMellitus")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("DiabetesMellitusDeatils")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("HasBurns")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasCDK")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasCancer")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasCardiacSurgery")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasCirculatoryShock")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasCriticalIllness")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasDehydration")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasHeartDisease")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasLiverDisease")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasLungDisease")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasMajorNoncardiacSurgery")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasNephrotoxicDrugs")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasPoisonousPlantesAndAnimals")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasRadiocontrastAgents")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasSepsis")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("HearDiseasetDeatils")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LiverDiseaseDeatils")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LungDiseaseDeatils")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MajorNoncardiacSurgeryDeatils")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NephrotoxicDrugsDeatils")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PoisonousPlantesAndAnimalsDeatils")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RadiocontrastAgentsDeatils")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SepsisDetails")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SerumCeratinine")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Trauma")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TraumaDeatils")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Triage")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatientId")
+                        .IsUnique();
+
+                    b.ToTable("AcuteKidneyInjuryRiskAssessment");
+                });
+
             modelBuilder.Entity("DataAccess.SQL.Entities.PatientEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -29,6 +178,9 @@ namespace DataAccess.SQL.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AcuteKidneyInjuryRiskAssessmentId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -43,6 +195,9 @@ namespace DataAccess.SQL.Migrations
 
                     b.Property<DateTimeOffset>("CreatedOn")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("EducationLevel")
+                        .HasColumnType("int");
 
                     b.Property<string>("FamilyName")
                         .IsRequired()
@@ -82,10 +237,19 @@ namespace DataAccess.SQL.Migrations
                     b.Property<int?>("PatientHistoryId")
                         .HasColumnType("int");
 
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Religion")
                         .HasColumnType("int");
 
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("Patients");
                 });
@@ -101,21 +265,12 @@ namespace DataAccess.SQL.Migrations
                     b.Property<int>("AKI")
                         .HasColumnType("int");
 
-                    b.Property<int>("Anemia")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Cancer")
-                        .HasColumnType("bit");
-
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("CreatedOn")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("DiabetesMellitus")
-                        .HasColumnType("bit");
 
                     b.Property<int>("GFR")
                         .HasColumnType("int");
@@ -138,6 +293,9 @@ namespace DataAccess.SQL.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("KidneyDisease")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -150,19 +308,10 @@ namespace DataAccess.SQL.Migrations
                     b.Property<int?>("PatientId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("PreviouskidneyDisease")
-                        .HasColumnType("bit");
-
                     b.Property<int>("Proteinuria")
                         .HasColumnType("int");
 
                     b.Property<bool>("RegularMedications")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("SerumCeratinine")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Triage")
                         .HasColumnType("bit");
 
                     b.Property<double>("Weight")
@@ -185,8 +334,9 @@ namespace DataAccess.SQL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BloodPressure")
-                        .HasColumnType("int");
+                    b.Property<string>("BloodPressure")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("CheckIn")
                         .HasColumnType("datetimeoffset");
@@ -194,16 +344,16 @@ namespace DataAccess.SQL.Migrations
                     b.Property<DateTimeOffset?>("CheckOut")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("ClinicName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("CreatedOn")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("DepartmentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Drugs")
                         .HasColumnType("nvarchar(max)");
@@ -247,6 +397,104 @@ namespace DataAccess.SQL.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("PatientMovements");
+                });
+
+            modelBuilder.Entity("DataAccess.SQL.Entities.TeamEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("DataAccess.SQL.Entities.TeamMemberEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FatherName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GrandFatherName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("ModifiedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("TeamMember");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -447,6 +695,28 @@ namespace DataAccess.SQL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("DataAccess.SQL.Entities.AcuteKidneyInjuryRiskAssessmentEntity", b =>
+                {
+                    b.HasOne("DataAccess.SQL.Entities.PatientEntity", "Patient")
+                        .WithOne("AcuteKidneyInjuryRiskAssessmentEntity")
+                        .HasForeignKey("DataAccess.SQL.Entities.AcuteKidneyInjuryRiskAssessmentEntity", "PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("DataAccess.SQL.Entities.PatientEntity", b =>
+                {
+                    b.HasOne("DataAccess.SQL.Entities.TeamEntity", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
+                });
+
             modelBuilder.Entity("DataAccess.SQL.Entities.PatientHistoryEntity", b =>
                 {
                     b.HasOne("DataAccess.SQL.Entities.PatientEntity", "Patient")
@@ -465,6 +735,17 @@ namespace DataAccess.SQL.Migrations
                         .IsRequired();
 
                     b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("DataAccess.SQL.Entities.TeamMemberEntity", b =>
+                {
+                    b.HasOne("DataAccess.SQL.Entities.TeamEntity", "TeamEntity")
+                        .WithMany("TeamMembers")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TeamEntity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -520,9 +801,16 @@ namespace DataAccess.SQL.Migrations
 
             modelBuilder.Entity("DataAccess.SQL.Entities.PatientEntity", b =>
                 {
+                    b.Navigation("AcuteKidneyInjuryRiskAssessmentEntity");
+
                     b.Navigation("Movements");
 
                     b.Navigation("PatientHistory");
+                });
+
+            modelBuilder.Entity("DataAccess.SQL.Entities.TeamEntity", b =>
+                {
+                    b.Navigation("TeamMembers");
                 });
 #pragma warning restore 612, 618
         }
